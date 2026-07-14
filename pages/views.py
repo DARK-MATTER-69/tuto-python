@@ -4,4 +4,10 @@ from django.shortcuts import render
 
 
 def home_page_view (request):
-    return HttpResponse("bonjour les gens de ce monde ")
+    context = {
+        'nom': 'brayann',
+        'age': 20,
+        'couleurs': ['noir','bleu'],
+        'est_connecte': True 
+    }
+    return render(request, 'home.html', context)
