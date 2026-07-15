@@ -1,0 +1,19 @@
+ {% extends "base.html" %} 
+
+ {% block content %} 
+ 
+<h2> Message de contact </h2>
+
+{% if message_list %}
+    <ul>
+    {% for message in message_list %}
+        <li>
+            De la part de {{message.name}} email : {{message.email}} a la date : {{message.created_at}}
+        </li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p> aucun message trouver </p>
+{% endif %}
+
+ {% endblock content %}
