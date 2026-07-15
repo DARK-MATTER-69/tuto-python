@@ -11,3 +11,6 @@ def home_page_view (request):
         'est_connecte': True 
     }
     return render(request, 'home.html', context)
+
+def contact_page_view (request):
+    return render(request, 'contact.html')
