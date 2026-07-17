@@ -1,4 +1,4 @@
-from django.http import HttpResponse
+from .forms import ContactForm
 from django.shortcuts import render
 
 from .models import ContactMessage
@@ -15,7 +15,20 @@ def home_page_view (request):
     return render(request, 'home.html', context)
 
 def contact_page_view (request):
-    return render(request, 'contact.html')
+    succes_msg = None
+    if request.method == 'POST':
+        form = ContactForm(request.POST)
+        if form.is_valid:
+            form.save()
+            succes_msg = "formulaire sousmit avec succes"
+            form = ContactForm()
+    else:
+        form = ContactForm() 
+    context = {
+        'form': form,
+        'succes_msg': succes_msg
+    }   
+    return render(request, 'contact.html', context)
 
 def message_list_view(request):
     message = ContactMessage.objects.all()
