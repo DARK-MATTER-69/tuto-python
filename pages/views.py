@@ -1,18 +1,31 @@
 from .forms import ContactForm
 from django.shortcuts import render
-
+from django.views.generic import TemplateView, ListView
 from .models import ContactMessage
 
 
+class HomePageView(TemplateView):
+    template_name = "home.html"
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["nom"] = "brayann" 
+        context["age"] = 20 
+        context["couleurs"] = ['noir','bleu'] 
+        context["est_connecte"] = True 
+        return context
+    
 
-def home_page_view (request):
-    context = {
-        'nom': 'brayann',
-        'age': 20,
-        'couleurs': ['noir','bleu'],
-        'est_connecte': True 
-    }
-    return render(request, 'home.html', context)
+
+# def home_page_view (request):
+#     context = {
+#         'nom': 'brayann',
+#         'age': 20,
+#         'couleurs': ['noir','bleu'],
+#         'est_connecte': True 
+#     }
+#     return render(request, 'home.html', context)
+
 
 def contact_page_view (request):
     succes_msg = None
@@ -30,9 +43,17 @@ def contact_page_view (request):
     }   
     return render(request, 'contact.html', context)
 
-def message_list_view(request):
-    message = ContactMessage.objects.all()
-    context = {
-        'message_list': message
-    }
-    return render(request, 'message_list.html', context)
+
+class MessageListView(ListView):
+    model = ContactMessage
+    template_name = "ContactMessage.html"
+    context_object_name = "message_list"
+
+
+
+# def message_list_view(request):
+#     message = ContactMessage.objects.all()
+#     context = {
+#         'message_list': message
+#     }
+#     return render(request, 'message_list.html', context)
