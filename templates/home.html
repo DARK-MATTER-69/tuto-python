@@ -1,25 +1,15 @@
 {% extends 'base.html' %}
 {% block content %}
     <h1>bonjour sombre mortel</h1>
-    <h3>je suis {{nom}} j'ai {{age}} ans</h3>
 
-    <h3>Mes couleurs</h3>
-    <p>
-        {% for couleur in couleurs %}
-            <li> {{couleur}} </li>
-        {% empty %}
-            <p> pas de couleur </p>
-        {% endfor %}
-    </p>
-
-    <h3>Statuts de connection</h3>
-    <p>
-        {% if est_connecte %}
-            <p> je suis connecté </p>
+    
+        {% if user.is_authenticated %}
+          <h3>je suis {{user.username}}</h3>
+          <p> je suis connecté </p>
         {% else %}
             <p> pas en ligne </p>
         {% endif %}
-    </p>
+
 
 {% endblock  %} 
 
