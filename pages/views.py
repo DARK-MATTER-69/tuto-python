@@ -4,7 +4,8 @@ from django.views.generic import TemplateView, ListView,CreateView
 from .models import ContactMessage
 from django.contrib.auth.forms import UserCreationForm
 from django.urls import reverse_lazy
-
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.decorators import login_required
 
 class HomePageView(TemplateView):
     template_name = "home.html"
@@ -30,7 +31,7 @@ class SignUpView(CreateView):
 #     }
 #     return render(request, 'home.html', context)
 
-
+@login_required #verifie si l'tulisateur est connecter avant d'acceder a la page
 def contact_page_view (request):
     succes_msg = None
     if request.method == 'POST':
@@ -48,7 +49,9 @@ def contact_page_view (request):
     return render(request, 'contact.html', context)
 
 
-class MessageListView(ListView):
+
+
+class MessageListView(LoginRequiredMixin, ListView): # loginRequired  a la mm utilite sauf que lui s'itilise dans une class directement 
     model = ContactMessage
     template_name = "ContactMessage.html"
     context_object_name = "message_list"
