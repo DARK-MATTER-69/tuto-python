@@ -1,6 +1,14 @@
 from django.db import models
 from django.contrib.auth.models import User
 
+
+# models many to many 
+class Tag(models.Model):
+    nom = models.CharField(max_length=50, unique=True)
+    
+    def __str__(self):
+        return self.name
+
 # Model de type ForeignKey (plusieurs a un)
 
 class Auteur(models.Model):
@@ -17,6 +25,10 @@ class Article(models.Model):
     auther = models.ForeignKey(
         to= Auteur,
         on_delete=models.CASCADE
+    )
+    tags = models.ManyToManyField(
+        to=Tag,
+        blank=True
     )
     def __str__(self):
         return f"{self.name} - {self.Auteur}"
