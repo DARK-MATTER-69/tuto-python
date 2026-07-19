@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 # Model de type ForeignKey (plusieurs a un)
 
@@ -20,3 +21,15 @@ class Article(models.Model):
     def __str__(self):
         return f"{self.name} - {self.Auteur}"
 
+# model one to one
+
+class Profile(models.Model):
+    user = models.OneToOneField(
+        to= User,
+        on_delete=models.CASCADE
+    )
+    bio = models.TextField()
+    site_web = models.URLField(blank=True, null=True)
+    
+    def __str__(self):
+        return self.user.username
