@@ -22,7 +22,7 @@ class Article(models.Model):
     titre = models.CharField(max_length=150)
     contenu = models.TextField()
     date_publication = models.DateTimeField(auto_now_add=True)
-    auther = models.ForeignKey(
+    auteur = models.ForeignKey(
         to= Auteur,
         on_delete=models.CASCADE
     )
@@ -30,6 +30,8 @@ class Article(models.Model):
         to=Tag,
         blank=True
     )
+    est_publier = models.BooleanField(default=False)
+    nb_vue = models.PositiveIntegerField(default=0)
     def __str__(self):
         return f"{self.name} - {self.Auteur}"
 
