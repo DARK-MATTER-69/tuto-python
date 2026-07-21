@@ -8,6 +8,36 @@
             mon blog
         {% endblock title %}
     </title>
+    <style>
+        body{
+            font-family: sans-serif;
+            margin: 20px;
+            background-color: #f4f4f4f4;
+            color: #333;
+        }
+
+        nav{
+            background-color: #333;
+            padding: 10px;
+            margin-bottom: 20px;
+        }
+
+        nav a {
+            margin-right: 25px;
+            text-decoration: none;
+            color: white;            
+        }
+        .container{
+            background-color: white;
+            border-radius: 5px;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+    h1,h2 {
+        color: #555;
+    }
+    </style>
 </head>
 <body>
     {% csrf_token %}
