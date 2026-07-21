@@ -10,12 +10,16 @@
     </title>
 </head>
 <body>
+    {% csrf_token %}
+    <nav>
+        <a href="">accueil</a>
+        <a href="">connexion</a>
+        <a href="">inscription</a>
+    </nav>
     <div class="container">
-        {% block %}
+        {% block content %}
 
-
-
-        {% endblock %}
+        {% endblock content %}
     </div>
 </body>
 </html>
