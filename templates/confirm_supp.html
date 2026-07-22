@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block title %}Supprimer l'article {{ article.titre }}?{% endblock title %}
+
+{% block content %}
+    <h1>confirmer la suppressiom</h1>
+    <p>confirmer la suppression de : <strong> {{ article.titre }} </strong> </p>
+
+    <form>
+        {% csrf_token %}
+        <a href="submit">oui, je valide </a>
+        <a href="{% url "blogapp:detail_article" pk=article.pk %}">Anneler</a>
+    </form>
+{% endblock content %}

@@ -58,4 +58,41 @@ def DetailArticleView (request, pk):
         'article': article
     }
     return render(request, 'detail_article.html', context)
+
+@login_required
+def ModificationArticleView (request, pk):
+    article = get_object_or_404(Article, pk=pk)
     
+    if article.auteur != request.user:
+        return redirect('blogapp:detail_article', pk=article.pk)
+    
+    if request.method == 'POST':
+        form = ArticleForm(request, instance=article)
+        if form.is_valid():
+            form.save()
+            return redirect ('blogapp:detail_article', pk=article.pk)
+    else:
+        form = ArticleForm(instance=article)
+    context ={
+        'form': form,
+        'action' : 'modifier',
+        'article' : article
+    }
+    return render (request, 'creer_form.html' ,context)
+    
+@login_required
+def Supprimer_view (request, pk):
+    article = get_object_or_404(Article, pk=pk)
+        
+    if article.auteur != request.user:
+        return redirect('blogapp:detail_article', pk=article.pk)
+    
+    if request.method == 'POST':
+       article.delete()
+       return redirect('blogapp:accueil')
+
+    context = {
+        'article': article
+    }
+       
+    return render (request, 'confirm_supp.html', context)

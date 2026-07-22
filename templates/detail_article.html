@@ -19,9 +19,12 @@
         {% endif %}
     </small>
     <hr/>
-
-
 </div>
+<hr/>
+{% if user.is_authenticated and user == article.auteur %}
+    <a href="{% url "modifier" pk= article.pk %}">Modifier l'article</a>
+    <a href="{% url "supprimer" pk=article.pk %}">Supprimer l'article</a>
+{% endif %}
 
 
 {% endblock content %}
