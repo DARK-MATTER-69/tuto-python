@@ -6,11 +6,33 @@
     <h1> Ma page d'acceuil </h1>
 
     <h3>Bienvenu sur mon blog</h3>
+    <hr/>
     <p>vous etes actuellement sur la page d'accueil </p>
      
     {% if user.is_authenticated %}
-        <p>vous etes connecteren tant que {{ user.username }}</p>
+        <p>  vous etes connecteren tant que {{ user.username }}
+            <a href="{% url 'creer_article' %}">Ajouter un article</a>
+        </p>
     {% else %}
     <p>Veuillez vous connectez</p>
     {% endif %}
+    <hr/>
+    <h1>Mes recents article</h1>
+    {% if articles %}
+        <ul>
+            {% for items in articles %}
+                <li>
+                    <h4>
+                        <a href ="{% url "blogapp:detail" pk=items.pk %}"> {{item.titre}} </a>
+                    </h4>
+                    <p>Par: {{item.auteur.username}} 
+                       Publier le : {{item.date_de_creation}} 
+                    </p>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>Aucun article disponible actuellement</p>
+    {% endif %}
+
 {% endblock content %}

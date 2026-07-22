@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block title %}
+    {{article.titre}}
+{% endblock title %}
+
+{% block content %}   
+<h1> {{article.titre}} </h1>
+<hr/> 
+
+<div>
+    {{article.contenu | linebreaksbr}}
+    <hr/>
+    <small>
+        Par <b>{{ article.auteur.username }}</b> - 
+        le {{article.date_de_creation}}
+        {% if date_de_creation != date_mise_a_jour %}
+          -  Deniere modification le {{article.date_mise_a_jour}}
+        {% endif %}
+    </small>
+    <hr/>
+
+
+</div>
+
+
+{% endblock content %}

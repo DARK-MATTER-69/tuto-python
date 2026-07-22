@@ -1,10 +1,17 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import render,redirect, get_object_or_404
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth import login,logout
+from django.contrib.auth.decorators import login_required
+from blogApp.models import Article
+from blogApp.froms import ArticleForm
 
 
 def accueil_view(request):
-    return render (request, 'accueil.html')
+    article = Article.objects.all().order_by('-date_de_creation')
+    context ={
+        'articles':article
+    }
+    return render (request, 'accueil.html', context)
 
 def connect_view(request):
     if request.method == 'POST':
@@ -31,3 +38,24 @@ def inscription_view(request):
 def deconnect_view(request):
     logout(request)
     return redirect(request, 'blogapp:accueil.html')
+
+@login_required
+def creer_un_article(request):
+    if request.method == 'POST':
+        form = ArticleForm(request.POST)
+        if form.is_valid():
+            new_article = form.save(commit=False)  # commit permet de faire mettre en pause l'enregistrement de la requete
+            new_article.auteur = request.user # donne le nom de l'auteur qui veut creer l'article 
+            new_article.save()
+            return redirect('blogapp:accueil')
+    else :
+        form = ArticleForm()
+    return render (request, 'creer_form.html', {'form': form, 'action': 'Creer'})
+
+def DetailArticleView (request, pk):
+    article = get_object_or_404(Article, pk=pk)
+    context = {
+        'article': article
+    }
+    return render(request, 'detail_article.html', context)
+    
