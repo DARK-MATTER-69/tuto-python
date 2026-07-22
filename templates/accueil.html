@@ -4,4 +4,13 @@
 
 {% block content %}
     <h1> Ma page d'acceuil </h1>
+
+    <h3>Bienvenu sur mon blog</h3>
+    <p>vous etes actuellement sur la page d'accueil </p>
+     
+    {% if user.is_authenticated %}
+        <p>vous etes connecteren tant que {{ user.username }}</p>
+    {% else %}
+    <p>Veuillez vous connectez</p>
+    {% endif %}
 {% endblock content %}

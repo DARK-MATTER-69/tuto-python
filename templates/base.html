@@ -42,9 +42,14 @@
 <body>
     {% csrf_token %}
     <nav>
-        <a href="">accueil</a>
-        <a href="">connexion</a>
-        <a href="">inscription</a>
+        <a href="{% url 'accueil' %}">Accueil</a>
+        {% if user.authenticated %}
+            <a href="{% url 'deconnexion' %}">deconnexion</a> 
+        {% else %}
+            <a href="{% url 'connexion' %}">Connexion</a>
+            <a href="{% url 'inscription' %}">Inscription</a>
+        {% endif %}
+        
     </nav>
     <div class="container">
         {% block content %}
